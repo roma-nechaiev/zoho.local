@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'zoho' => [
+        'store' =>  env('ZOHO_STORE', 'database'),
+        'client_id' => env('ZOHO_CLIENT_ID'),
+        'client_secret' => env('ZOHO_CLIENT_SECRET'),
+        'grant_token' =>  env('ZOHO_GRANT_TOKEN'),
+        'redirect_url' => env('ZOHO_REDIRECT_URL'),
+    ],
+
 ];
