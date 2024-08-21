@@ -41,7 +41,7 @@ defineProps<{
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow v-for="dial in dials">
+                <TableRow v-for="dial in dials" :key="dial.id">
                     <TableCell class="font-medium">
                         {{ dial.id }}
                     </TableCell>

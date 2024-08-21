@@ -45,7 +45,7 @@ defineProps<{
                 </TableRow>
             </TableHeader>
             <TableBody>
-                <TableRow v-for="account in accounts">
+                <TableRow v-for="account in accounts" :key="account.id">
                     <TableCell class="font-medium">
                         {{ account.id }}
                     </TableCell>
