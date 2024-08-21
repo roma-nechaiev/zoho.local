@@ -29,7 +29,7 @@ defineProps<{
         <div class="flex items-center justify-between">
             <h1 class="text-2xl font-bold tracking-tight">Dials</h1>
         </div>
-        <Table v-if="dials">
+        <Table v-if="dials?.length">
             <TableHeader>
                 <TableRow>
                     <TableHead class="w-[100px]">Id</TableHead>
@@ -55,6 +55,6 @@ defineProps<{
                 </TableRow>
             </TableBody>
         </Table>
-        <EmptyState v-else>No Accounts found</EmptyState>
+        <EmptyState v-else>No dials found</EmptyState>
     </SiteLayout>
 </template>

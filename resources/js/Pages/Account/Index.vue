@@ -32,7 +32,7 @@ defineProps<{
             <CreateAccountForm />
         </div>
 
-        <Table v-if="accounts">
+        <Table v-if="accounts?.length">
             <TableHeader>
                 <TableRow>
                     <TableHead class="w-[100px]">Id</TableHead>
