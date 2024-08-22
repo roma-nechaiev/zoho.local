@@ -15,16 +15,12 @@ use Inertia\Response;
 
 class DialController extends Controller
 {
-    public $zoho_client;
-    public function __construct()
-    {
-        $this->zoho_client = ZohoClient::init();
-    }
+
 
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(ZohoClient $zoho_client): Response
     {
         $paramInstance = new ParameterMap();
 
@@ -35,7 +31,7 @@ class DialController extends Controller
         $paramInstance->add(GetRecordsParam::page(), 1);
         $paramInstance->add(GetRecordsParam::perPage(), 20);
 
-        $dials = $this->zoho_client->getRecords('Deals', $paramInstance);
+        $dials = $zoho_client->getRecords('Deals', $paramInstance);
 
         return Inertia::render('Dial/Index', [
             'dials' => $dials,
@@ -45,7 +41,7 @@ class DialController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create(Request $request, ZohoClient $zoho_client)
     {
         $request->validate([
             'Deal_Name' => ['required', 'string', 'max:255'],
@@ -61,7 +57,7 @@ class DialController extends Controller
         $account_name->setId($request->input('id'));
         $record->addFieldValue(Deals::AccountName(), $account_name);
 
-        $response = $this->zoho_client->createRecords('Deals', $record);
+        $response = $zoho_client->createRecords('Deals', $record);
 
         $message = $response['status'] == "success" ? "Dial Created Successfully" : $response['message'];
 

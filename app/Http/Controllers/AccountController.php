@@ -15,15 +15,11 @@ use Inertia\Response;
 
 class AccountController extends Controller
 {
-    public $zoho_client;
-    public function __construct()
-    {
-        $this->zoho_client = ZohoClient::init();
-    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index(ZohoClient $zoho_client): Response
     {
         $paramInstance = new ParameterMap();
 
@@ -34,7 +30,7 @@ class AccountController extends Controller
         $paramInstance->add(GetRecordsParam::page(), 1);
         $paramInstance->add(GetRecordsParam::perPage(), 20);
 
-        $accounts = $this->zoho_client->getRecords('Accounts', $paramInstance);
+        $accounts = $zoho_client->getRecords('Accounts', $paramInstance);
 
 
         return Inertia::render('Account/Index', [
@@ -45,7 +41,7 @@ class AccountController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request): RedirectResponse
+    public function create(Request $request, ZohoClient $zoho_client): RedirectResponse
     {;
 
         $request->validate([
@@ -59,7 +55,7 @@ class AccountController extends Controller
         $record->addFieldValue(Accounts::Phone(), $request->input('Phone'));
         $record->addFieldValue(Accounts::Website(), $request->input('Website'));
 
-        $response = $this->zoho_client->createRecords('Accounts', $record);
+        $response = $zoho_client->createRecords('Accounts', $record);
         $message = $response['status'] == "success" ? "Account Created Successfully" : $response['message'];
 
         return to_route('home')->with('message', $message);
